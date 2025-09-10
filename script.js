@@ -5,6 +5,7 @@ class BinaryAsciiVisualizer {
         this.completedMissions = new Set(); // Track completed missions
         this.hintsViewed = new Set(); // Track viewed hints for missions
         this.modulesViewed = new Set(); // Track viewed modules for missions
+        this.firstDecimalViewInMission8 = true; // Track first decimal view in mission 8
         this.missions = [
             {
                 text: "🔍 Willkommen! Klicke auf die Glühbirne 💡 neben den Schaltern, um herauszufinden, wie Computer funktionieren!",
@@ -112,6 +113,7 @@ class BinaryAsciiVisualizer {
         this.createMissionButtons();
         this.initializeHintBulbs();
         this.initializeModuleStates();
+        this.initializeDecimalValues(); // Initialize fixed decimal value positions
         this.updateDisplay();
         this.updateMission();
     }
@@ -216,6 +218,7 @@ class BinaryAsciiVisualizer {
         this.currentValue = value;
         this.updateOutputs();
         this.updateLEDs();
+        this.updateDecimalValues(); // Update dynamic decimal values
         this.animateChange();
         this.checkMission();
     }
@@ -225,6 +228,7 @@ class BinaryAsciiVisualizer {
         this.updateSwitches();
         this.updateOutputs();
         this.updateLEDs();
+        this.updateDecimalValues(); // Update dynamic decimal values
         this.animateChange();
         this.checkMission();
     }
@@ -320,6 +324,65 @@ class BinaryAsciiVisualizer {
         });
     }
 
+    updateDecimalValues() {
+        // Initialize decimal values if they don't exist yet
+        const existingElements = document.querySelectorAll('.decimal-value[data-bit]');
+        if (existingElements.length === 0) {
+            this.initializeDecimalValues();
+        }
+
+        // Update visibility of decimal values based on switch states
+        for (let bit = 0; bit <= 7; bit++) {
+            const switchEl = document.querySelector(`.switch input[data-bit="${bit}"]`);
+            const decimalElement = document.querySelector(`.decimal-value[data-bit="${bit}"]`);
+            
+            if (switchEl && decimalElement) {
+                if (switchEl.checked) {
+                    decimalElement.style.visibility = 'visible';
+                    decimalElement.style.opacity = '1';
+                } else {
+                    decimalElement.style.visibility = 'hidden';
+                    decimalElement.style.opacity = '0';
+                }
+            }
+        }
+    }
+
+    initializeDecimalValues() {
+        const decimalValuesContainer = document.querySelector('.decimal-values');
+        if (!decimalValuesContainer) return;
+
+        // Clear existing content
+        decimalValuesContainer.innerHTML = '';
+        
+        // Create fixed positioned decimal values for each bit (7 to 0, left to right)
+        for (let bit = 7; bit >= 0; bit--) {
+            const decimalValue = Math.pow(2, bit);
+            
+            // Create decimal value element with fixed position
+            const valueElement = document.createElement('span');
+            valueElement.className = 'decimal-value';
+            valueElement.dataset.bit = bit;
+            valueElement.textContent = decimalValue;
+            valueElement.style.fontWeight = 'bold';
+            valueElement.style.color = '#10b981'; // Lighter green for better visibility
+            valueElement.style.backgroundColor = 'rgba(5, 150, 105, 0.1)'; // Very subtle green background
+            valueElement.style.border = '1px solid rgba(5, 150, 105, 0.3)'; // Subtle border
+            valueElement.style.borderRadius = '6px'; // Rounded corners for modern look
+            valueElement.style.padding = '4px 8px'; // Small padding for the box
+            valueElement.style.display = 'inline-block';
+            valueElement.style.textAlign = 'center';
+            valueElement.style.width = '70px'; // Slightly adjusted for padding
+            valueElement.style.fontSize = '1.1rem'; // Larger font size
+            valueElement.style.visibility = 'hidden'; // Initially hidden
+            valueElement.style.opacity = '0';
+            valueElement.style.transition = 'opacity 0.2s ease';
+            valueElement.style.margin = '0 2px'; // Small margin for spacing
+            
+            decimalValuesContainer.appendChild(valueElement);
+        }
+    }
+
     toggleModule(toggle) {
         const moduleId = toggle.id.replace('-toggle', '-module');
         let module = document.getElementById(moduleId);
@@ -337,11 +400,23 @@ class BinaryAsciiVisualizer {
                 // Track module viewing for missions
                 if (toggle.id === 'decimal-values-toggle') {
                     this.modulesViewed.add('decimal-values');
+                    
+                    // Special behavior for Mission 8: Set to question mark (63) on first activation
+                    if (this.currentMission === 7 && this.firstDecimalViewInMission8) { // Mission 8 is index 7
+                        this.setValue(63); // Set to '?' (00111111)
+                        this.firstDecimalViewInMission8 = false;
+                    }
+                    
                     this.checkMission(); // Check if this completes a mission
                 }
             } else {
                 module.classList.add('hidden');
                 this.hideModuleHints(toggle.id);
+            }
+            
+            // Update decimal values display when decimal-values module is toggled
+            if (toggle.id === 'decimal-values-toggle') {
+                this.updateDecimalValues();
             }
         }
     }
@@ -438,6 +513,7 @@ class BinaryAsciiVisualizer {
         this.updateSwitches();
         this.updateOutputs();
         this.updateLEDs();
+        this.updateDecimalValues(); // Update dynamic decimal values
     }
 
     animateChange() {
