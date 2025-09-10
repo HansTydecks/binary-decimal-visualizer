@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binär-ASCII-Visualizer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Binär-ASCII-Dezimal</h1>
+            <div class="module-controls">
+            </div>
+        </header>
+        
+        <main>
+            <div class="bit-display">
+                <!-- Module Toggle für Values direkt über dem entsprechenden Bereich -->
+                <div class="values-controls">
+                    <label class="module-toggle">
+                        <input type="checkbox" id="decimal-values-toggle">
+                        <span>Dezimalwerte</span>
+                    </label>
+                    <label class="module-toggle">
+                        <input type="checkbox" id="power-values-toggle">
+                        <span>Zweierpotenzen</span>
+                    </label>
+                </div>
+                
+                <!-- LED-Anzeigen -->
+                <div class="leds">
+                    <div class="led" data-bit="7">0</div>
+                    <div class="led" data-bit="6">0</div>
+                    <div class="led" data-bit="5">0</div>
+                    <div class="led" data-bit="4">0</div>
+                    <div class="led" data-bit="3">0</div>
+                    <div class="led" data-bit="2">0</div>
+                    <div class="led" data-bit="1">0</div>
+                    <div class="led" data-bit="0">0</div>
+                </div>
+                
+                <!-- Bit-Position-Labels -->
+                <div class="bit-positions">
+                    <button class="hint-bulb" id="bits-hint" title="Was ist ein Bit?">💡</button>
+                    <div class="bit-position">Bit 7</div>
+                    <div class="bit-position">Bit 6</div>
+                    <div class="bit-position">Bit 5</div>
+                    <div class="bit-position">Bit 4</div>
+                    <div class="bit-position">Bit 3</div>
+                    <div class="bit-position">Bit 2</div>
+                    <div class="bit-position">Bit 1</div>
+                    <div class="bit-position">Bit 0</div>
+                </div>
+                
+                <!-- Toggle-Switches -->
+                <div class="switches">
+                    <button class="hint-bulb" id="switches-hint" title="Warum Schalter?">💡</button>
+                    <div class="switch-container">
+                        <label class="switch">
+                            <input type="checkbox" data-bit="7">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="switch-container">
+                        <label class="switch">
+                            <input type="checkbox" data-bit="6">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="switch-container">
+                        <label class="switch">
+                            <input type="checkbox" data-bit="5">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="switch-container">
+                        <label class="switch">
+                            <input type="checkbox" data-bit="4">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="switch-container">
+                        <label class="switch">
+                            <input type="checkbox" data-bit="3">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="switch-container">
+                        <label class="switch">
+                            <input type="checkbox" data-bit="2">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="switch-container">
+                        <label class="switch">
+                            <input type="checkbox" data-bit="1">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="switch-container">
+                        <label class="switch">
+                            <input type="checkbox" data-bit="0">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Dezimalwerte unter Schaltern -->
+                <div class="decimal-values module hidden" id="decimal-values-module">
+                    <div class="value">128</div>
+                    <div class="value">64</div>
+                    <div class="value">32</div>
+                    <div class="value">16</div>
+                    <div class="value">8</div>
+                    <div class="value">4</div>
+                    <div class="value">2</div>
+                    <div class="value">1</div>
+                </div>
+                
+                <!-- Zweierpotenzen unter Schaltern -->
+                <div class="power-values module hidden" id="power-values-module">
+                    <div class="value">2⁷</div>
+                    <div class="value">2⁶</div>
+                    <div class="value">2⁵</div>
+                    <div class="value">2⁴</div>
+                    <div class="value">2³</div>
+                    <div class="value">2²</div>
+                    <div class="value">2¹</div>
+                    <div class="value">2⁰</div>
+                </div>
+                
+                <!-- Mission Box -->
+                <div class="mission-box">
+                    <h3>🎯 Mission</h3>
+                    <div class="mission-content" id="mission-content">
+                        Zeige den ASCII-Buchstaben 'y' an!
+                    </div>
+                    
+                    <!-- Mission Selector -->
+                    <div class="mission-selector">
+                        <div class="mission-buttons" id="mission-buttons">
+                            <!-- Wird dynamisch gefüllt -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="output-area">
+                <!-- Module Controls für Output-Bereich -->
+                <div class="output-controls">
+                    <label class="module-toggle">
+                        <input type="checkbox" id="ascii-mode-toggle" checked>
+                        <span>ASCII-Modus</span>
+                    </label>
+                    <label class="module-toggle">
+                        <input type="checkbox" id="binary-output-toggle">
+                        <span>Binär</span>
+                    </label>
+                    <label class="module-toggle">
+                        <input type="checkbox" id="decimal-output-toggle">
+                        <span>Dezimal</span>
+                    </label>
+                    <label class="module-toggle">
+                        <input type="checkbox" id="grayscale-toggle">
+                        <span>Graustufe</span>
+                    </label>
+                </div>
+                
+                <div class="ascii-output">
+                    <div class="output-label">ASCII-Zeichen:</div>
+                    <div class="ascii-char" id="ascii-char">?</div>
+                </div>
+                
+                <div class="additional-outputs">
+                    <div class="binary-output module hidden" id="binary-output-module">
+                        <div class="output-label">Binär:</div>
+                        <div class="output-value" id="binary-value">00111111</div>
+                    </div>
+                    
+                    <div class="decimal-output module hidden" id="decimal-output-module">
+                        <div class="output-label">Dezimal:</div>
+                        <div class="output-value" id="decimal-value">63</div>
+                    </div>
+                    
+                    <div class="grayscale-output module hidden" id="grayscale-module">
+                        <div class="output-label">Graustufe:</div>
+                        <div class="grayscale-box" id="grayscale-box"></div>
+                        <div class="grayscale-info" id="grayscale-info">63/255</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Material Box -->
+            <div class="material-box">
+                <h3>📚 Material & Hilfen</h3>
+                <div class="material-controls">
+                    <button class="material-btn" id="ascii-table-btn">ASCII-Tabelle anzeigen</button>
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <div class="impressum">
+                <p>Binär-ASCII-Visualizer für den Informatikunterricht</p>
+                <p>Entwickelt für Lehrende und Lernende | 
+                   <a href="https://github.com/HansTydecks/binary-ascii-visualizer" target="_blank">GitHub</a> | 
+                   © 2025 Hans Tydecks
+                </p>
+            </div>
+        </footer>
+    </div>
+    
+    <!-- ASCII Table Modal -->
+    <div class="modal-overlay" id="ascii-table-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>ASCII-Tabelle</h3>
+                <button class="close-btn" id="close-ascii-table">&times;</button>
+            </div>
+            <div class="ascii-table-container">
+                <table class="ascii-table" id="ascii-table">
+                    <!-- Wird dynamisch gefüllt -->
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Hint Modal -->
+    <div class="modal-overlay" id="hint-modal">
+        <div class="modal-content hint-modal">
+            <div class="modal-header">
+                <h3>💡 Hinweis</h3>
+                <button class="close-btn" id="close-hint">&times;</button>
+            </div>
+            <div class="hint-content" id="hint-content">
+                <!-- Wird dynamisch gefüllt -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Mission Success Modal -->
+    <div class="modal-overlay" id="mission-modal">
+        <div class="modal-content mission-modal">
+            <div class="mission-success">
+                <h3>🎉 Mission erfüllt!</h3>
+                <div class="mission-result" id="mission-result">
+                    <!-- Wird dynamisch gefüllt -->
+                </div>
+                <button class="continue-btn" id="continue-mission">Weiter</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
