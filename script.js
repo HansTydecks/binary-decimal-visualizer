@@ -3,12 +3,20 @@ class BinaryAsciiVisualizer {
         this.currentValue = 63; // Start with '?'
         this.currentMission = 0;
         this.completedMissions = new Set(); // Track completed missions
+        this.hintsViewed = new Set(); // Track viewed hints for missions
+        this.modulesViewed = new Set(); // Track viewed modules for missions
         this.missions = [
+            {
+                text: "🔍 Willkommen! Klicke auf die Glühbirne 💡 neben den Schaltern, um herauszufinden, wie Computer funktionieren!",
+                check: () => this.hintsViewed && this.hintsViewed.has('switches'),
+                success: "Super! Jetzt weißt du, dass Computer nur mit 0 und 1 arbeiten - genau wie diese Schalter!",
+                timer: 5
+            },
             {
                 text: "Zeige das große 'A' an!",
                 check: () => this.currentValue === 65, // 'A'
-                success: "Perfekt! Das große A hat den ASCII-Code 65!",
-                timer: 3
+                success: "Perfekt! Das große A hat den ASCII-Code 65!\nFahre mit dem Mauszeiger über die gelösten Aufgaben, um die Lösungen zu sehen.",
+                timer: 10
             },
             {
                 text: "Zeige das kleine 'a' an!",
@@ -39,6 +47,12 @@ class BinaryAsciiVisualizer {
                 check: () => this.currentValue === 99, // 'c'
                 success: "Fantastisch! Das kleine c hat den ASCII-Code 99!",
                 timer: 3
+            },
+            {
+                text: "🔢 Bevor wir zu den Zahlen gehen: Aktiviere zuerst 'Dezimalwerte' und klicke dann auf die Glühbirne 💡, um zu verstehen, wie die Werte berechnet werden!",
+                check: () => this.modulesViewed && this.modulesViewed.has('decimal-values') && this.hintsViewed && this.hintsViewed.has('dezimalwerte'),
+                success: "Perfekt! Jetzt verstehst du, wie die Dezimalwerte in den einzelnen Positionen berechnet werden. Lass uns mit den Zahlen weitermachen!",
+                timer: 5
             },
             {
                 text: "Zeige die Zahl '0' an!",
@@ -79,7 +93,13 @@ class BinaryAsciiVisualizer {
             {
                 text: "Zeige das Ausrufezeichen '!' an!",
                 check: () => this.currentValue === 33, // '!'
-                success: "🎉 HERZLICHEN GLÜCKWUNSCH! 🎉 Du bist jetzt ein wahrer ASCII-Meister! Du hast alle Missionen erfolgreich abgeschlossen!",
+                success: "Ausgezeichnet! Das Ausrufezeichen hat den ASCII-Code 33!",
+                timer: 4
+            },
+            {
+                text: "🔬 Zum Abschluss: Klicke auf die Glühbirne 💡 bei 'Bit 0-7', um die Geheimnisse der Bit-Positionen zu entdecken!",
+                check: () => this.hintsViewed && this.hintsViewed.has('bits'),
+                success: "🎉 HERZLICHEN GLÜCKWUNSCH! 🎉 Du bist jetzt ein wahrer ASCII-Meister! Du hast alle Missionen erfolgreich abgeschlossen und verstehst jetzt, wie Computer mit Bits arbeiten!",
                 timer: 8
             }
         ];
@@ -313,6 +333,12 @@ class BinaryAsciiVisualizer {
             if (toggle.checked) {
                 module.classList.remove('hidden');
                 this.showModuleHints(toggle.id);
+                
+                // Track module viewing for missions
+                if (toggle.id === 'decimal-values-toggle') {
+                    this.modulesViewed.add('decimal-values');
+                    this.checkMission(); // Check if this completes a mission
+                }
             } else {
                 module.classList.add('hidden');
                 this.hideModuleHints(toggle.id);
@@ -560,10 +586,20 @@ class BinaryAsciiVisualizer {
         const content = hints[type] || "Hier könnte ein Hinweis stehen!";
         document.getElementById('hint-content').textContent = content;
         document.getElementById('hint-modal').classList.add('active');
+        
+        // Store the current hint type for tracking when modal is closed
+        this.currentHintType = type;
     }
 
     hideHint() {
         document.getElementById('hint-modal').classList.remove('active');
+        
+        // Track that this hint was viewed for mission purposes when modal is closed
+        if (this.currentHintType) {
+            this.hintsViewed.add(this.currentHintType);
+            this.checkMission(); // Check if viewing this hint completes a mission
+            this.currentHintType = null; // Reset
+        }
     }
 
     // Mission System
@@ -599,17 +635,39 @@ class BinaryAsciiVisualizer {
             if (this.completedMissions.has(index)) {
                 button.classList.add('completed');
                 button.textContent = ''; // Haken wird über CSS eingefügt
+                
+                // Füge Hover-Tooltip mit binärer Lösung hinzu
+                const mission = this.missions[index];
+                const targetValue = this.getMissionTargetValue(mission);
+                if (targetValue !== null) {
+                    const binaryValue = targetValue.toString(2).padStart(8, '0');
+                    const character = targetValue >= 32 && targetValue <= 126 ? String.fromCharCode(targetValue) : 'Steuerzeichen';
+                    button.title = `✓ Mission ${index + 1} gelöst\nZeichen: '${character}'\nDezimal: ${targetValue}\nBinär: ${binaryValue}`;
+                } else {
+                    // Für Hint-Missionen ohne ASCII-Wert
+                    button.title = `✓ Mission ${index + 1} gelöst\nHinweis erfolgreich gelesen!`;
+                }
             } else if (index === this.currentMission) {
                 button.classList.add('current');
                 button.textContent = index + 1;
+                button.title = `Mission ${index + 1} - Aktuell`;
             } else if (index <= this.getMaxUnlockedMission()) {
                 // Unlocked but not current
                 button.textContent = index + 1;
+                button.title = `Mission ${index + 1} - Verfügbar`;
             } else {
                 button.classList.add('locked');
                 button.textContent = index + 1;
+                button.title = `Mission ${index + 1} - Gesperrt`;
             }
         });
+    }
+
+    getMissionTargetValue(mission) {
+        // Extrahiere den Zielwert aus der Mission-Check-Funktion
+        const checkString = mission.check.toString();
+        const match = checkString.match(/this\.currentValue === (\d+)/);
+        return match ? parseInt(match[1]) : null;
     }
 
     getMaxUnlockedMission() {

@@ -523,10 +523,61 @@ footer {
     align-items: center;
     justify-content: center;
     position: relative;
+    white-space: pre-line;
 }
 
 .mission-btn:hover {
     transform: scale(1.1);
+}
+
+/* Bessere Tooltip-Darstellung für gelöste Missionen */
+.mission-btn.completed:hover {
+    z-index: 1000;
+}
+
+.mission-btn.completed:hover::after {
+    content: attr(title);
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--surface-color);
+    color: var(--text-primary);
+    padding: 20px 24px;
+    border-radius: 12px;
+    border: 2px solid var(--accent-color);
+    font-size: 1.2rem;
+    font-weight: 700;
+    white-space: pre-line;
+    text-align: center;
+    min-width: 300px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), 0 0 30px var(--accent-color);
+    z-index: 1001;
+    animation: tooltipFadeIn 0.3s ease;
+    margin-top: 12px;
+    line-height: 1.5;
+}
+
+.mission-btn.completed:hover::before {
+    content: '';
+    position: absolute;
+    top: 90%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 12px solid transparent;
+    border-bottom-color: var(--accent-color);
+    z-index: 1001;
+}
+
+@keyframes tooltipFadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
 }
 
 /* Mission states */
@@ -622,7 +673,7 @@ footer {
     display: none;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    z-index: 9999;
     animation: fadeIn 0.3s ease;
 }
 
@@ -830,6 +881,8 @@ footer {
     font-size: 1rem;
     font-weight: 500;
     transition: all 0.2s;
+    display: block;
+    margin: 0 auto;
 }
 
 .continue-btn:hover {
