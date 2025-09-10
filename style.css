@@ -270,8 +270,19 @@ input:checked + .slider:before {
 .power-values {
     display: grid;
     grid-template-columns: repeat(8, 1fr);
-    gap: 20px;
+    gap: 15px; /* Abstand zwischen den Kästen - können Sie anpassen */
     text-align: center;
+    position: relative; /* Für absolute Positionierung der Hint-Container */
+}
+
+/* Hint-Container aus dem Grid-Flow herausnehmen */
+.decimal-values .module-hint-container,
+.power-values .module-hint-container {
+    position: absolute;
+    bottom: -50px; /* Unter dem Grid positionieren */
+    left: 50%;
+    transform: translateX(-50%);
+    grid-column: unset; /* Nicht als Grid-Item behandeln */
 }
 
 .decimal-values .value,
@@ -282,6 +293,13 @@ input:checked + .slider:before {
     padding: 8px;
     background-color: var(--border-color);
     border-radius: 8px;
+    width: 80px; /* Breite der einzelnen Kästen */
+    height: 40px; /* Höhe der Kästen */
+    margin: 0 auto; /* Zentriert die Kästen in ihrer Grid-Zelle */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
 }
 
 /* Output Area */
