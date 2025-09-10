@@ -5,79 +5,78 @@ class BinaryAsciiVisualizer {
         this.completedMissions = new Set(); // Track completed missions
         this.hintsViewed = new Set(); // Track viewed hints for missions
         this.modulesViewed = new Set(); // Track viewed modules for missions
-        this.firstDecimalViewInMission8 = true; // Track first decimal view in mission 8
         this.missions = [
             {
-                text: "🔍 Willkommen! Klicke auf die Glühbirne 💡 neben den Schaltern, um herauszufinden, wie Computer funktionieren!",
+                text: "🔍 Willkommen! Klicke auf die Glühbirne 💡 neben den Schaltern, um herauszufinden, was diese Schalter mit Computern zu tun haben!",
                 check: () => this.hintsViewed && this.hintsViewed.has('switches'),
-                success: "Super! Jetzt weißt du, dass Computer nur mit 0 und 1 arbeiten - genau wie diese Schalter!",
-                timer: 5
+                success: "Super! Jetzt weißt du, dass Computer nur mit 0 und 1 arbeiten - genau wie diese Schalter die man ein- und ausschalten kann!",
+                timer: 8
             },
             {
-                text: "Zeige das große 'A' an!",
+                text: "Zeige das große 'A' in ASCII an! Schaue in der ASCII-Tabelle nach, welche Schalter du dafür umlegen musst.",
                 check: () => this.currentValue === 65, // 'A'
-                success: "Perfekt! Das große A hat den ASCII-Code 65!\nFahre mit dem Mauszeiger über die gelösten Aufgaben, um die Lösungen zu sehen.",
+                success: "Perfekt! Das große A hat den ASCII-Code 65!\nFahre mit dem Mauszeiger über die gelösten Aufgaben, um die Lösungen erneut zu sehen.",
                 timer: 10
             },
             {
-                text: "Zeige das kleine 'a' an!",
+                text: "Zeige das kleine 'a' in ASCII an!",
                 check: () => this.currentValue === 97, // 'a'
-                success: "Toll! Das kleine a hat den ASCII-Code 97!",
-                timer: 3
+                success: "Das kleine a hat den ASCII-Code 97! Merke dir, welchen Schalter du umlegen musstest, um von A zu a zu kommen.",
+                timer: 8
             },
             {
-                text: "Zeige das große 'B' an!",
+                text: "Zeige das große 'B' in ASCII an!",
                 check: () => this.currentValue === 66, // 'B'
                 success: "Großartig! Das große B hat den ASCII-Code 66!",
                 timer: 3
             },
             {
-                text: "Zeige das kleine 'b' an!",
+                text: "Zeige das kleine 'b' in ASCII an!",
                 check: () => this.currentValue === 98, // 'b'
-                success: "Super! Das kleine b hat den ASCII-Code 98!",
+                success: "Das kleine b hat den ASCII-Code 98!",
                 timer: 3
             },
             {
-                text: "Zeige das große 'C' an!",
+                text: "Zeige das große 'C' in ASCII an!",
                 check: () => this.currentValue === 67, // 'C'
-                success: "Exzellent! Das große C hat den ASCII-Code 67!",
+                success: "Das große C hat den ASCII-Code 67!",
                 timer: 3
             },
             {
-                text: "Zeige das kleine 'c' an!",
+                text: "Zeige das kleine 'c' in ASCII an! Brauchst du noch die Tabelle dafür?",
                 check: () => this.currentValue === 99, // 'c'
                 success: "Fantastisch! Das kleine c hat den ASCII-Code 99!",
                 timer: 3
             },
             {
-                text: "🔢 Bevor wir zu den Zahlen gehen: Aktiviere zuerst 'Dezimalwerte' und klicke dann auf die Glühbirne 💡, um zu verstehen, wie die Werte berechnet werden!",
+                text: "Bevor wir zu den Zahlen gehen: Aktiviere zuerst 'Dezimalwerte' in der Eingabe und klicke dann auf die Glühbirne 💡 links, um zu verstehen, wie der Wert berechnet wird!",
                 check: () => this.modulesViewed && this.modulesViewed.has('decimal-values') && this.hintsViewed && this.hintsViewed.has('dezimalwerte'),
-                success: "Perfekt! Jetzt verstehst du, wie die Dezimalwerte in den einzelnen Positionen berechnet werden. Lass uns mit den Zahlen weitermachen!",
-                timer: 5
+                success: "Perfekt! Jetzt verstehst du, wie die Dezimalwerte in den einzelnen Positionen berechnet werden. Lass uns mit den ASCII-Zahlen weitermachen!",
+                timer: 10
             },
             {
-                text: "Zeige die Zahl '0' an!",
+                text: "Zeige die Zahl '0' in ASCII an!",
                 check: () => this.currentValue === 48, // '0'
                 success: "Richtig! Die Ziffer 0 hat den ASCII-Code 48!",
                 timer: 3
             },
             {
-                text: "Zeige die Zahl '1' an!",
+                text: "Zeige die Zahl '1' in ASCII an!",
                 check: () => this.currentValue === 49, // '1'
-                success: "Korrekt! Die Ziffer 1 hat den ASCII-Code 49!",
-                timer: 3
+                success: "Die Ziffer 1 hat den ASCII-Code 49! Welchen Unterschied zur 0 hast du bemerkt? Welche Schalter musstest du umlegen?",
+                timer: 10
             },
             {
                 text: "Zeige die Zahl '2' an!",
                 check: () => this.currentValue === 50, // '2'
-                success: "Prima! Die Ziffer 2 hat den ASCII-Code 50!",
-                timer: 3
+                success: "Die Ziffer 2 hat den ASCII-Code 50! Achte weiter auf die Schalter und die Dezimalwerte darunter.",
+                timer: 8
             },
             {
-                text: "Zeige die Zahl '3' an!",
+                text: "Zeige die Zahl '3' in ASCII an!",
                 check: () => this.currentValue === 51, // '3'
-                success: "Sehr gut! Die Ziffer 3 hat den ASCII-Code 51!",
-                timer: 3
+                success: "Sehr gut! Die Ziffer 3 hat den ASCII-Code 51! Sicher fällt dir schon das Muster auf.",
+                timer: 5
             },
             {
                 text: "Zeige die Zahl '4' an!",
@@ -88,20 +87,90 @@ class BinaryAsciiVisualizer {
             {
                 text: "Zeige die Zahl '9' an!",
                 check: () => this.currentValue === 57, // '9'
-                success: "Ausgezeichnet! Die Ziffer 9 hat den ASCII-Code 57!",
+                success: "Die Ziffer 9 hat den ASCII-Code 57!",
                 timer: 4
             },
             {
-                text: "Zeige das Ausrufezeichen '!' an!",
-                check: () => this.currentValue === 33, // '!'
-                success: "Ausgezeichnet! Das Ausrufezeichen hat den ASCII-Code 33!",
-                timer: 4
-            },
-            {
-                text: "🔬 Zum Abschluss: Klicke auf die Glühbirne 💡 bei 'Bit 0-7', um die Geheimnisse der Bit-Positionen zu entdecken!",
+                text: "🔬 Zum Abschluss: Klicke auf die Glühbirne 💡 bei 'Bit 0-7', um die eine Erklärung der Bit-Positionen zu entdecken!",
                 check: () => this.hintsViewed && this.hintsViewed.has('bits'),
-                success: "🎉 HERZLICHEN GLÜCKWUNSCH! 🎉 Du bist jetzt ein wahrer ASCII-Meister! Du hast alle Missionen erfolgreich abgeschlossen und verstehst jetzt, wie Computer mit Bits arbeiten!",
+                success: "🎉 HERZLICHEN GLÜCKWUNSCH! 🎉 Du bist jetzt ein wahrer ASCII-Meister! Du hast alle Missionen erfolgreich abgeschlossen und verstehst jetzt, wie der Computer die kleinen Schalter (die Bits) zu lesbaren Zeichen decodieren kann.",
                 timer: 8
+            },
+            {
+                text: "🔄 Neuer Modus: Schalte den ASCII-Output auf der rechten Seite aus und den Dezimal-Output ein!",
+                check: () => {
+                    const asciiToggle = document.getElementById('ascii-mode-toggle');
+                    const decimalToggle = document.getElementById('decimal-output-toggle');
+                    return !asciiToggle.checked && decimalToggle.checked;
+                },
+                success: "Perfekt! Jetzt siehst du Zahlen statt Buchstaben - der Computer kann dieselben Bits unterschiedlich interpretieren!",
+                timer: 5
+            },
+            {
+                text: "Schalte alle Schalter aus (alle auf 0)!",
+                check: () => this.currentValue === 0,
+                success: "Gut! Alle Bits sind aus - das ergibt die Dezimalzahl 0!",
+                timer: 3
+            },
+            {
+                text: "Lasse dir die Dezimalzahl 1 anzeigen!",
+                check: () => this.currentValue === 1,
+                success: "Richtig! Die Dezimalzahl 1 braucht nur das erste Bit!",
+                timer: 3
+            },
+            {
+                text: "Lasse dir die Dezimalzahl 2 anzeigen!",
+                check: () => this.currentValue === 2,
+                success: "Die Dezimalzahl 2 braucht nur das zweite Bit!",
+                timer: 3
+            },
+            {
+                text: "Lasse dir die Dezimalzahl 4 anzeigen!",
+                check: () => this.currentValue === 4,
+                success: "Die Dezimalzahl 4 braucht nur das dritte Bit! Fällt dir auf welches Muster zwischen den einzelnen Dezimalzahlen der Bits besteht?",
+                timer: 10
+            },
+            {
+                text: "Lasse dir die Dezimalzahl 8 anzeigen!",
+                check: () => this.currentValue === 8,
+                success: "Die Dezimalzahl 8 braucht nur das vierte Bit!",
+                timer: 3
+            },
+            {
+                text: "Lasse dir die Dezimalzahl 5 anzeigen!",
+                check: () => this.currentValue === 5,
+                success: "Super! Die 5 ist 4 + 1, also Bit 0 und Bit 2!",
+                timer: 3
+            },
+            {
+                text: "Lasse dir die Dezimalzahl 13 anzeigen!",
+                check: () => this.currentValue === 13,
+                success: "Toll! Die 13 ist 8 + 4 + 1!",
+                timer: 3
+            },
+            {
+                text: "Lasse dir die Dezimalzahl 68 anzeigen!",
+                check: () => this.currentValue === 68,
+                success: "Die 68 ist 64 + 4!",
+                timer: 3
+            },
+            {
+                text: "Lasse dir die Dezimalzahl 127 anzeigen!",
+                check: () => this.currentValue === 127,
+                success: "Die 127 braucht alle Bits außer dem höchsten Bit 7!",
+                timer: 4
+            },
+            {
+                text: "Lasse dir die Dezimalzahl 243 anzeigen!",
+                check: () => this.currentValue === 243,
+                success: "Exzellent! Die 243 ist eine komplexe Kombination vieler Bits!",
+                timer: 4
+            },
+            {
+                text: "🎉 FINALE MISSION: Du bist jetzt ein Binär-Dezimal-Experte! Herzlichen Glückwunsch!",
+                check: () => true, // Wird automatisch erfüllt
+                success: "🏆 PERFEKT! 🏆 Du hast alle Missionen gemeistert! Du verstehst jetzt sowohl ASCII-Zeichen als auch Dezimalzahlen in Binärdarstellung. Du bist ein wahrer Computer-Profi!",
+                timer: 10
             }
         ];
         this.init();
@@ -113,7 +182,6 @@ class BinaryAsciiVisualizer {
         this.createMissionButtons();
         this.initializeHintBulbs();
         this.initializeModuleStates();
-        this.initializeDecimalValues(); // Initialize fixed decimal value positions
         this.updateDisplay();
         this.updateMission();
     }
@@ -218,7 +286,7 @@ class BinaryAsciiVisualizer {
         this.currentValue = value;
         this.updateOutputs();
         this.updateLEDs();
-        this.updateDecimalValues(); // Update dynamic decimal values
+        this.updateDecimalValues(); // Neue Funktion hinzufügen
         this.animateChange();
         this.checkMission();
     }
@@ -228,7 +296,7 @@ class BinaryAsciiVisualizer {
         this.updateSwitches();
         this.updateOutputs();
         this.updateLEDs();
-        this.updateDecimalValues(); // Update dynamic decimal values
+        this.updateDecimalValues(); // Auch hier hinzufügen
         this.animateChange();
         this.checkMission();
     }
@@ -325,62 +393,26 @@ class BinaryAsciiVisualizer {
     }
 
     updateDecimalValues() {
-        // Initialize decimal values if they don't exist yet
-        const existingElements = document.querySelectorAll('.decimal-value[data-bit]');
-        if (existingElements.length === 0) {
-            this.initializeDecimalValues();
-        }
-
-        // Update visibility of decimal values based on switch states
-        for (let bit = 0; bit <= 7; bit++) {
-            const switchEl = document.querySelector(`.switch input[data-bit="${bit}"]`);
-            const decimalElement = document.querySelector(`.decimal-value[data-bit="${bit}"]`);
+        // Update decimal values visibility based on switch states
+        const switches = document.querySelectorAll('.switch input[type="checkbox"]');
+        const decimalValues = document.querySelectorAll('.decimal-values .value');
+        
+        switches.forEach((switchEl, index) => {
+            const bit = parseInt(switchEl.dataset.bit);
+            // Find corresponding decimal value (bit 7 = index 0, bit 6 = index 1, etc.)
+            const valueIndex = 7 - bit;
+            const valueElement = decimalValues[valueIndex];
             
-            if (switchEl && decimalElement) {
+            if (valueElement) {
                 if (switchEl.checked) {
-                    decimalElement.style.visibility = 'visible';
-                    decimalElement.style.opacity = '1';
+                    valueElement.style.opacity = '1';
+                    valueElement.style.visibility = 'visible';
                 } else {
-                    decimalElement.style.visibility = 'hidden';
-                    decimalElement.style.opacity = '0';
+                    valueElement.style.opacity = '0.15';
+                    valueElement.style.visibility = 'visible';
                 }
             }
-        }
-    }
-
-    initializeDecimalValues() {
-        const decimalValuesContainer = document.querySelector('.decimal-values');
-        if (!decimalValuesContainer) return;
-
-        // Clear existing content
-        decimalValuesContainer.innerHTML = '';
-        
-        // Create fixed positioned decimal values for each bit (7 to 0, left to right)
-        for (let bit = 7; bit >= 0; bit--) {
-            const decimalValue = Math.pow(2, bit);
-            
-            // Create decimal value element with fixed position
-            const valueElement = document.createElement('span');
-            valueElement.className = 'decimal-value';
-            valueElement.dataset.bit = bit;
-            valueElement.textContent = decimalValue;
-            valueElement.style.fontWeight = 'bold';
-            valueElement.style.color = '#10b981'; // Lighter green for better visibility
-            valueElement.style.backgroundColor = 'rgba(5, 150, 105, 0.1)'; // Very subtle green background
-            valueElement.style.border = '1px solid rgba(5, 150, 105, 0.3)'; // Subtle border
-            valueElement.style.borderRadius = '6px'; // Rounded corners for modern look
-            valueElement.style.padding = '4px 8px'; // Small padding for the box
-            valueElement.style.display = 'inline-block';
-            valueElement.style.textAlign = 'center';
-            valueElement.style.width = '70px'; // Slightly adjusted for padding
-            valueElement.style.fontSize = '1.1rem'; // Larger font size
-            valueElement.style.visibility = 'hidden'; // Initially hidden
-            valueElement.style.opacity = '0';
-            valueElement.style.transition = 'opacity 0.2s ease';
-            valueElement.style.margin = '0 2px'; // Small margin for spacing
-            
-            decimalValuesContainer.appendChild(valueElement);
-        }
+        });
     }
 
     toggleModule(toggle) {
@@ -400,25 +432,15 @@ class BinaryAsciiVisualizer {
                 // Track module viewing for missions
                 if (toggle.id === 'decimal-values-toggle') {
                     this.modulesViewed.add('decimal-values');
-                    
-                    // Special behavior for Mission 8: Set to question mark (63) on first activation
-                    if (this.currentMission === 7 && this.firstDecimalViewInMission8) { // Mission 8 is index 7
-                        this.setValue(63); // Set to '?' (00111111)
-                        this.firstDecimalViewInMission8 = false;
-                    }
-                    
-                    this.checkMission(); // Check if this completes a mission
                 }
             } else {
                 module.classList.add('hidden');
                 this.hideModuleHints(toggle.id);
             }
-            
-            // Update decimal values display when decimal-values module is toggled
-            if (toggle.id === 'decimal-values-toggle') {
-                this.updateDecimalValues();
-            }
         }
+        
+        // Check mission after any toggle change (for missions that depend on toggle states)
+        this.checkMission();
     }
 
     showModuleHints(toggleId) {
@@ -479,13 +501,8 @@ class BinaryAsciiVisualizer {
         bulb.title = `Was ist ${type}?`;
         bulb.addEventListener('click', () => this.showHint(type.toLowerCase()));
 
-        const label = document.createElement('span');
-        label.textContent = `💡 ${type.charAt(0).toUpperCase() + type.slice(1)} Hilfe`;
-        label.style.color = 'var(--text-secondary)';
-        label.style.fontSize = '0.9rem';
-
+        // Nur die Glühbirne hinzufügen, kein Text-Label
         hintContainer.appendChild(bulb);
-        hintContainer.appendChild(label);
         container.appendChild(hintContainer);
     }
 
@@ -513,7 +530,7 @@ class BinaryAsciiVisualizer {
         this.updateSwitches();
         this.updateOutputs();
         this.updateLEDs();
-        this.updateDecimalValues(); // Update dynamic decimal values
+        this.updateDecimalValues(); // Auch hier hinzufügen
     }
 
     animateChange() {
@@ -650,12 +667,12 @@ class BinaryAsciiVisualizer {
     showHint(type) {
         const hints = {
             bits: "Ein Bit ist die kleinste Informationseinheit im Computer - es kann nur 0 oder 1 sein, wie ein Lichtschalter der an oder aus ist. 8 Bits zusammen nennt man ein Byte!",
-            switches: "Diese Schalter zeigen, wie Computer funktionieren: Jeder Schalter kann nur AN (1) oder AUS (0) sein - genau wie winzige elektronische Schalter im Computer!",
-            output: "Hier siehst du, was Menschen verstehen können! Der Computer wandelt die 0en und 1en in Buchstaben, Zahlen oder andere Zeichen um, die wir lesen können.",
+            switches: "Diese Schalter zeigen, wie Computer funktionieren: Jeder Schalter kann nur AN (1) oder AUS (0) sein - genau wie die winzigen elektronischen Schalter im Computer. Sie lassen entweder Strom fließen, oder eben nicht. Das ist alles was der Computer braucht um Buchstaben und Zahlen zu codieren.",
+            output: "Hier siehst du, was Menschen verstehen können! Der Computer wandelt die 0en und 1en in Buchstaben, Zahlen oder andere Zeichen um, die wir lesen können. Dazu nutzt er den ASCII-Code aus der Tabelle. Dort schaut er nach wenn er ein Byte bekommt.",
             dezimalwerte: "Diese Zahlen zeigen, wie viel jede Position wert ist. Computer rechnen mit dem Zweiersystem - jede Position ist doppelt so viel wert wie die nächste!",
             zweierpotenzen: "Das sind Potenzen von 2! Jede Position hat einen anderen Wert: 2⁰=1, 2¹=2, 2²=4, 2³=8... Das ist die Mathematik hinter dem Binärsystem!",
             graustufen: "Dieselben Bits können auch Farben darstellen! Hier siehst du, wie hell oder dunkel ein Grauton wäre - 0 ist schwarz, 255 ist weiß!",
-            dezimalausgabe: "Das ist die Zahl, die deine Bit-Kombination darstellt. Computer können dieselben Bits auf verschiedene Weise interpretieren!",
+            dezimalausgabe: "Das ist die Dezimalzahl, die deine Bit-Kombination darstellt. Computer können dieselben Bits auf verschiedene Weise interpretieren!",
             binärausgabe: "Das ist die Binärdarstellung deiner Bits als Zahlenfolge. So 'sieht' der Computer deine Eingabe: nur 0en und 1en!"
         };
 
@@ -788,6 +805,20 @@ class BinaryAsciiVisualizer {
                 this.showMissionSuccess(mission.success);
             }
         }
+        
+        // Spezielle Behandlung für die finale Mission (automatisch erfüllen wenn vorherige Mission abgeschlossen)
+        const finalMissionIndex = this.missions.length - 1;
+        if (this.currentMission === finalMissionIndex - 1 && 
+            this.completedMissions.has(finalMissionIndex - 1) && 
+            !this.completedMissions.has(finalMissionIndex)) {
+            // Automatisch zur finalen Mission wechseln und erfüllen
+            setTimeout(() => {
+                this.currentMission = finalMissionIndex;
+                this.completedMissions.add(finalMissionIndex);
+                this.updateMission();
+                this.showMissionSuccess(this.missions[finalMissionIndex].success);
+            }, 1000);
+        }
     }
 
     showMissionSuccess(message) {
@@ -843,8 +874,9 @@ class BinaryAsciiVisualizer {
             }
         }, 100);
         
-        // Konfetti für die letzte Mission (Mission 13)
-        if (this.currentMission === 12 && this.completedMissions.has(12)) {
+        // Konfetti für Mission 15 (Ende der ASCII-Missionen) und letzte Mission
+        if ((this.currentMission === 15 && this.completedMissions.has(15)) || 
+            (this.currentMission === this.missions.length - 1 && this.completedMissions.has(this.missions.length - 1))) {
             this.showConfetti();
         }
     }
