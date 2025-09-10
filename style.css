@@ -275,14 +275,29 @@ input:checked + .slider:before {
     position: relative; /* Für absolute Positionierung der Hint-Container */
 }
 
+/* Vertikaler Abstand zwischen den Modulen wenn beide sichtbar sind */
+.power-values:not(.hidden) {
+    margin-top: 30px; /* Abstand wenn Zweierpotenzen sichtbar sind */
+}
+
+/* Zusätzlicher Abstand wenn beide Module gleichzeitig sichtbar sind */
+.decimal-values:not(.hidden) + .power-values:not(.hidden) {
+    margin-top: 40px; /* Größerer Abstand wenn beide aktiv sind */
+}
+
 /* Hint-Container aus dem Grid-Flow herausnehmen */
 .decimal-values .module-hint-container,
 .power-values .module-hint-container {
     position: absolute;
-    bottom: -50px; /* Unter dem Grid positionieren */
-    left: 50%;
-    transform: translateX(-50%);
+    left: -45px; /* Links daneben wie bei den anderen Hints */
+    top: 50%;
+    transform: translateY(-50%);
     grid-column: unset; /* Nicht als Grid-Item behandeln */
+}
+
+/* Text bei Module-Hints entfernen */
+.module-hint-container span {
+    display: none;
 }
 
 .decimal-values .value,
