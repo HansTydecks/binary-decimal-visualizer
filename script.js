@@ -299,7 +299,18 @@ class BinaryAsciiVisualizer {
         });
 
         document.getElementById('help-no').addEventListener('click', () => {
-            this.hideHelpRequest();
+            // Byte wird traurig wenn Hilfe abgelehnt wird
+            const helpByte = document.getElementById('help-request-byte');
+            if (helpByte && helpByte.querySelector('img')) {
+                helpByte.querySelector('img').src = 'Byte_mascot/Byte_Sad.png';
+                setTimeout(() => {
+                    helpByte.querySelector('img').src = 'Byte_mascot/Byte_normal.png';
+                }, 1000);
+            }
+            
+            setTimeout(() => {
+                this.hideHelpRequest();
+            }, 500);
         });
 
         document.getElementById('close-help-explanation').addEventListener('click', () => {
@@ -728,6 +739,15 @@ class BinaryAsciiVisualizer {
         document.getElementById('hint-content').textContent = content;
         document.getElementById('hint-modal').classList.add('active');
         
+        // Byte Animation beim Hint zeigen
+        const hintByte = document.getElementById('hint-byte');
+        if (hintByte) {
+            hintByte.classList.add('celebrating');
+            setTimeout(() => {
+                hintByte.classList.remove('celebrating');
+            }, 600);
+        }
+        
         // Store the current hint type for tracking when modal is closed
         this.currentHintType = type;
     }
@@ -877,6 +897,13 @@ class BinaryAsciiVisualizer {
         document.getElementById('mission-result').textContent = message;
         document.getElementById('mission-modal').classList.add('active');
         
+        // Byte Animation bei Mission Success
+        const missionByte = document.getElementById('mission-byte');
+        missionByte.classList.add('celebrating');
+        setTimeout(() => {
+            missionByte.classList.remove('celebrating');
+        }, 600);
+        
         // Verstecke den Weiter-Button und zeige Progress Bar
         const continueBtn = document.getElementById('continue-mission');
         continueBtn.style.display = 'none';
@@ -930,6 +957,20 @@ class BinaryAsciiVisualizer {
     }
 
     showConfetti() {
+        // Extra Byte Animation bei Confetti
+        const missionByte = document.getElementById('mission-byte');
+        if (missionByte) {
+            missionByte.classList.add('celebrating');
+            // Erweiterte Animation für besondere Erfolge
+            setTimeout(() => {
+                missionByte.classList.remove('celebrating');
+                missionByte.classList.add('celebrating');
+            }, 300);
+            setTimeout(() => {
+                missionByte.classList.remove('celebrating');
+            }, 1200);
+        }
+        
         for (let i = 0; i < 100; i++) {
             setTimeout(() => {
                 const confetti = document.createElement('div');
@@ -980,6 +1021,13 @@ class BinaryAsciiVisualizer {
 
     showHelpRequest() {
         document.getElementById('help-request-modal').classList.add('active');
+        
+        // Byte "denkt nach" Animation
+        const helpByte = document.getElementById('help-request-byte');
+        if (helpByte && helpByte.querySelector('img')) {
+            helpByte.querySelector('img').src = 'Byte_mascot/Byte_Thinking.png';
+        }
+        
         // Reset button states
         document.getElementById('help-yes').style.display = 'block';
         document.getElementById('help-no').style.display = 'block';
@@ -1031,6 +1079,16 @@ class BinaryAsciiVisualizer {
             const explanation = this.generateHelpExplanation(targetValue);
             document.getElementById('help-explanation-content').innerHTML = explanation;
             document.getElementById('help-explanation-modal').classList.add('active');
+            
+            // Byte wechselt zu "erklärend" und animiert
+            const explanationByte = document.getElementById('help-explanation-byte');
+            if (explanationByte && explanationByte.querySelector('img')) {
+                explanationByte.querySelector('img').src = 'Byte_mascot/Byte_Happy.png';
+                explanationByte.classList.add('celebrating');
+                setTimeout(() => {
+                    explanationByte.classList.remove('celebrating');
+                }, 600);
+            }
         }
     }
 
