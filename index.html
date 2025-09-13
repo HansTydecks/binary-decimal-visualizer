@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Binär-ASCII-Visualizer</title>
+    <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -150,6 +151,7 @@
                         <!-- ASCII Table Button -->
                         <div class="ascii-table-controls">
                             <button class="ascii-table-btn" id="ascii-table-btn">📋 ASCII-Tabelle anzeigen</button>
+                            <button class="help-btn hidden" id="mission-help-btn">🆘 Hilfe</button>
                         </div>
                     </div>
                 </div>
@@ -257,6 +259,39 @@
         </div>
     </div>
     
+    <!-- Help Request Modal -->
+    <div class="modal-overlay" id="help-request-modal">
+        <div class="modal-content help-modal">
+            <div class="modal-header">
+                <h3>🆘 Hilfe anfordern</h3>
+            </div>
+            <div class="help-content">
+                <p>Brauchst du Hilfe bei dieser Aufgabe?</p>
+                <p>Ich kann dir eine Erklärung geben, wie du die Schalter umlegst!</p>
+                <div id="help-progress-container" style="display: none;">
+                    <!-- Progress bar wird hier eingefügt -->
+                </div>
+                <div class="help-buttons">
+                    <button class="help-btn-yes" id="help-yes" style="display: block;">Ja, ich brauche Hilfe!</button>
+                    <button class="help-btn-no" id="help-no">Nein, ich versuche es noch mal selbst</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Help Explanation Modal -->
+    <div class="modal-overlay" id="help-explanation-modal">
+        <div class="modal-content help-modal">
+            <div class="modal-header">
+                <h3>🎯 So geht's!</h3>
+                <button class="close-btn" id="close-help-explanation">&times;</button>
+            </div>
+            <div class="help-explanation" id="help-explanation-content">
+                <!-- Wird dynamisch gefüllt -->
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>

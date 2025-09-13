@@ -63,7 +63,7 @@ class BinaryAsciiVisualizer {
             {
                 text: "Zeige die Zahl '1' in ASCII an!",
                 check: () => this.currentValue === 49, // '1'
-                success: "Die Ziffer 1 hat den ASCII-Code 49! Welchen Unterschied zur 0 hast du bemerkt? Welche Schalter musstest du umlegen?",
+                success: "Die Ziffer 1 hat den ASCII-Code 49! Welchen Unterschied zur 0 hast du bemerkt? Welche Schalter musstest du umlegen? Vergleiche mit den Dezimalwerten darunter.",
                 timer: 10
             },
             {
@@ -91,9 +91,9 @@ class BinaryAsciiVisualizer {
                 timer: 4
             },
             {
-                text: "🔬 Zum Abschluss: Klicke auf die Glühbirne 💡 bei 'Bit 0-7', um die eine Erklärung der Bit-Positionen zu entdecken!",
+                text: "Zum Abschluss: Klicke auf die Glühbirne 💡 bei 'Bit 0-7', um die eine Erklärung der Bit-Positionen zu entdecken!",
                 check: () => this.hintsViewed && this.hintsViewed.has('bits'),
-                success: "🎉 HERZLICHEN GLÜCKWUNSCH! 🎉 Du bist jetzt ein wahrer ASCII-Meister! Du hast alle Missionen erfolgreich abgeschlossen und verstehst jetzt, wie der Computer die kleinen Schalter (die Bits) zu lesbaren Zeichen decodieren kann.",
+                success: "🎉 Herzlichen Glückwunsch! 🎉 Du bist jetzt ein wahrer ASCII-Meister! Du hast alle Missionen erfolgreich abgeschlossen und verstehst jetzt, wie der Computer die kleinen Schalter (die Bits) zu lesbaren Zeichen decodieren kann.",
                 timer: 8
             },
             {
@@ -160,17 +160,35 @@ class BinaryAsciiVisualizer {
                 success: "Die 127 braucht alle Bits außer dem höchsten Bit 7!",
                 timer: 4
             },
+                        {
+                text: "Lasse dir die Dezimalzahl 100 anzeigen!",
+                check: () => this.currentValue === 100,
+                success: "Sehr gut! ",
+                timer: 2
+            },
+                        {
+                text: "Lasse dir die Dezimalzahl 185 anzeigen!",
+                check: () => this.currentValue === 185,
+                success: "Exzellent!",
+                timer: 2
+            },
+                        {
+                text: "Lasse dir die Dezimalzahl 212 anzeigen!",
+                check: () => this.currentValue === 212,
+                success: "Top!",
+                timer: 1
+            },
             {
                 text: "Lasse dir die Dezimalzahl 243 anzeigen!",
                 check: () => this.currentValue === 243,
                 success: "Exzellent! Die 243 ist eine komplexe Kombination vieler Bits!",
-                timer: 4
+                timer: 1
             },
             {
-                text: "🎉 FINALE MISSION: Du bist jetzt ein Binär-Dezimal-Experte! Herzlichen Glückwunsch!",
+                text: "🎉 Du bist jetzt ein Binär-Dezimal-Experte! Herzlichen Glückwunsch!",
                 check: () => true, // Wird automatisch erfüllt
-                success: "🏆 PERFEKT! 🏆 Du hast alle Missionen gemeistert! Du verstehst jetzt sowohl ASCII-Zeichen als auch Dezimalzahlen in Binärdarstellung. Du bist ein wahrer Computer-Profi!",
-                timer: 10
+                success: "Perfekt! 🏆 Du hast alle Missionen gemeistert! Du verstehst jetzt sowohl ASCII-Zeichen als auch Dezimalzahlen in Binärdarstellung. Du bist ein wahrer Computer-Profi!",
+                timer: 5
             }
         ];
         this.init();
@@ -269,6 +287,36 @@ class BinaryAsciiVisualizer {
         document.getElementById('mission-modal').addEventListener('click', (e) => {
             // Mission Modal kann nicht durch Außenklick geschlossen werden
             // Nur über den Button möglich
+        });
+
+        // Help System
+        document.getElementById('mission-help-btn').addEventListener('click', () => {
+            this.showHelpRequest();
+        });
+
+        document.getElementById('help-yes').addEventListener('click', () => {
+            this.startHelpTimer();
+        });
+
+        document.getElementById('help-no').addEventListener('click', () => {
+            this.hideHelpRequest();
+        });
+
+        document.getElementById('close-help-explanation').addEventListener('click', () => {
+            this.hideHelpExplanation();
+        });
+
+        // Help modal close on outside click
+        document.getElementById('help-request-modal').addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) {
+                this.hideHelpRequest();
+            }
+        });
+
+        document.getElementById('help-explanation-modal').addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) {
+                this.hideHelpExplanation();
+            }
         });
     }
 
@@ -735,10 +783,10 @@ class BinaryAsciiVisualizer {
                 if (targetValue !== null) {
                     const binaryValue = targetValue.toString(2).padStart(8, '0');
                     const character = targetValue >= 32 && targetValue <= 126 ? String.fromCharCode(targetValue) : 'Steuerzeichen';
-                    button.title = `✓ Mission ${index + 1} gelöst\nZeichen: '${character}'\nDezimal: ${targetValue}\nBinär: ${binaryValue}`;
+                    button.title = `✓ Mission ${index + 1} gelöst\nZeichen: '${character}'\nDezimal: ${targetValue}\nBinär: ${binaryValue}\n\n💬 Erklärung:\n${mission.success}`;
                 } else {
                     // Für Hint-Missionen ohne ASCII-Wert
-                    button.title = `✓ Mission ${index + 1} gelöst\nHinweis erfolgreich gelesen!`;
+                    button.title = `✓ Mission ${index + 1} gelöst\nHinweis erfolgreich gelesen!\n\n💬 Erklärung:\n${mission.success}`;
                 }
             } else if (index === this.currentMission) {
                 button.classList.add('current');
@@ -792,6 +840,7 @@ class BinaryAsciiVisualizer {
             document.getElementById('mission-content').textContent = "🎉 Alle Missionen erfüllt! Du bist jetzt ein ASCII-Experte!";
         }
         this.updateMissionButtons();
+        this.updateHelpButtonVisibility();
     }
 
     checkMission() {
@@ -874,9 +923,8 @@ class BinaryAsciiVisualizer {
             }
         }, 100);
         
-        // Konfetti für Mission 15 (Ende der ASCII-Missionen) und letzte Mission
-        if ((this.currentMission === 15 && this.completedMissions.has(15)) || 
-            (this.currentMission === this.missions.length - 1 && this.completedMissions.has(this.missions.length - 1))) {
+        // Konfetti für Mission 15 (Index 14, Ende der ASCII-Missionen) und letzte Mission
+        if (this.currentMission === 14 || this.currentMission === this.missions.length - 1) {
             this.showConfetti();
         }
     }
@@ -917,6 +965,145 @@ class BinaryAsciiVisualizer {
         
         this.currentMission = nextMission;
         this.updateMission();
+    }
+
+    // Help System
+    updateHelpButtonVisibility() {
+        const helpBtn = document.getElementById('mission-help-btn');
+        // Button ab Mission 20 (Index 20, das ist "Lasse dir die Dezimalzahl 8 anzeigen!")
+        if (this.currentMission >= 20) {
+            helpBtn.classList.remove('hidden');
+        } else {
+            helpBtn.classList.add('hidden');
+        }
+    }
+
+    showHelpRequest() {
+        document.getElementById('help-request-modal').classList.add('active');
+        // Reset button states
+        document.getElementById('help-yes').style.display = 'block';
+        document.getElementById('help-no').style.display = 'block';
+        document.getElementById('help-progress-container').style.display = 'none';
+    }
+
+    hideHelpRequest() {
+        document.getElementById('help-request-modal').classList.remove('active');
+    }
+
+    startHelpTimer() {
+        // Hide buttons and show progress
+        document.getElementById('help-yes').style.display = 'none';
+        document.getElementById('help-no').style.display = 'none';
+        
+        const progressContainer = document.getElementById('help-progress-container');
+        progressContainer.style.display = 'block';
+        progressContainer.innerHTML = `
+            <div style="width: 100%; height: 8px; background-color: var(--border-color); border-radius: 4px; margin: 20px 0; overflow: hidden;">
+                <div id="help-progress-bar" style="width: 0%; height: 100%; background: linear-gradient(90deg, var(--primary-color), var(--accent-color)); border-radius: 4px; transition: width 0.1s ease;"></div>
+            </div>
+            <p>Bereite die Erklärung vor... ⏳</p>
+        `;
+
+        // Progress animation
+        let progress = 0;
+        const increment = 100 / 50; // 5 Sekunden, 10 Updates pro Sekunde
+        
+        const progressInterval = setInterval(() => {
+            progress += increment;
+            const progressBar = document.getElementById('help-progress-bar');
+            if (progressBar) {
+                progressBar.style.width = Math.min(progress, 100) + '%';
+            }
+            
+            if (progress >= 100) {
+                clearInterval(progressInterval);
+                this.hideHelpRequest();
+                this.showHelpExplanation();
+            }
+        }, 100);
+    }
+
+    showHelpExplanation() {
+        const mission = this.missions[this.currentMission];
+        const targetValue = this.getMissionTargetValue(mission);
+        
+        if (targetValue !== null) {
+            const explanation = this.generateHelpExplanation(targetValue);
+            document.getElementById('help-explanation-content').innerHTML = explanation;
+            document.getElementById('help-explanation-modal').classList.add('active');
+        }
+    }
+
+    hideHelpExplanation() {
+        document.getElementById('help-explanation-modal').classList.remove('active');
+    }
+
+    generateHelpExplanation(targetValue) {
+        const binaryString = targetValue.toString(2).padStart(8, '0');
+        const steps = [];
+        
+        // Analyse welche Bits gesetzt werden müssen
+        const setBits = [];
+        for (let i = 0; i < 8; i++) {
+            if (binaryString[7 - i] === '1') {
+                setBits.push({
+                    position: i,
+                    value: Math.pow(2, i),
+                    label: `Bit ${i}`
+                });
+            }
+        }
+
+        let explanation = `
+            <h4>🎯 Ziel: Dezimalzahl ${targetValue} einstellen</h4>
+            <p>Du musst die Schalter so umschalten, dass zusammen ${targetValue} herauskommt!</p>
+        `;
+
+        if (setBits.length === 1) {
+            const bit = setBits[0];
+            explanation += `
+                <div class="step">
+                    <span class="step-number">1️⃣</span>
+                    <strong>Schalte nur einen Schalter ein:</strong><br>
+                    Schalte ${bit.label} EIN (nach oben). Das ist der Schalter mit dem Wert ${bit.value}.<br>
+                    Alle anderen Schalter bleiben AUS (nach unten).
+                </div>
+                <p>🧮 <strong>Rechnung:</strong> ${bit.value} = ${targetValue}</p>
+            `;
+        } else {
+            explanation += `
+                <div class="step">
+                    <span class="step-number">1️⃣</span>
+                    <strong>Schalte diese Schalter EIN (nach oben):</strong><br>
+            `;
+            
+            setBits.forEach((bit, index) => {
+                explanation += `• ${bit.label} (Wert: ${bit.value})`;
+                if (index < setBits.length - 1) explanation += '<br>';
+            });
+            
+            explanation += `
+                </div>
+                <div class="step">
+                    <span class="step-number">2️⃣</span>
+                    <strong>Alle anderen Schalter bleiben AUS (nach unten)</strong>
+                </div>
+            `;
+            
+            const calculation = setBits.map(bit => bit.value).join(' + ');
+            explanation += `<p>🧮 <strong>Rechnung:</strong> ${calculation} = ${targetValue}</p>`;
+        }
+
+        explanation += `
+            <div class="step">
+                <span class="step-number">💡</span>
+                <strong>Tipp:</strong> 
+                Schaue dir die Dezimalwerte unter den Schaltern an! 
+                Du musst die Zahlen finden, die zusammen ${targetValue} ergeben.
+            </div>
+        `;
+
+        return explanation;
     }
 
     // Method to demonstrate specific educational examples

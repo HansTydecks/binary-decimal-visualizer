@@ -452,6 +452,11 @@ input:checked + .slider:before {
     font-family: 'Courier New', monospace;
 }
 
+/* Spezifische Größe für Dezimalwerte */
+#decimal-value {
+    font-size: 6rem;
+}
+
 .grayscale-box {
     width: 80px;
     height: 80px;
@@ -587,6 +592,7 @@ footer {
 .ascii-table-controls {
     display: flex;
     justify-content: center;
+    gap: 10px;
     margin-top: 15px;
 }
 
@@ -607,6 +613,29 @@ footer {
     background-color: #f59e0b;
     transform: translateY(-1px);
     box-shadow: var(--shadow-lg);
+}
+
+.help-btn {
+    background-color: var(--primary-color);
+    color: var(--background-color);
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s;
+    box-shadow: var(--shadow);
+}
+
+.help-btn:hover {
+    background-color: #0891b2;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-lg);
+}
+
+.help-btn.hidden {
+    display: none;
 }
 
 .mission-btn {
@@ -902,6 +931,16 @@ footer {
     font-size: 1.4rem;
 }
 
+/* Gruppenabgrenzung: Dickere Ränder zwischen den 3er-Spaltengruppen */
+.ascii-table th:nth-child(4),
+.ascii-table td:nth-child(4),
+.ascii-table th:nth-child(7),
+.ascii-table td:nth-child(7),
+.ascii-table th:nth-child(10),
+.ascii-table td:nth-child(10) {
+    border-left: 3px solid var(--accent-color) !important;
+}
+
 /* Hint Modal */
 .hint-modal {
     max-width: 500px;
@@ -943,6 +982,83 @@ footer {
     transition: all 0.2s;
     display: block;
     margin: 0 auto;
+}
+
+/* Help Modals */
+.help-modal {
+    max-width: 450px;
+    text-align: center;
+}
+
+.help-content {
+    color: var(--text-primary);
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.help-content p {
+    margin-bottom: 15px;
+}
+
+.help-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.help-btn-yes, .help-btn-no {
+    background-color: var(--primary-color);
+    color: var(--background-color);
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.help-btn-yes:hover {
+    background-color: var(--secondary-color);
+}
+
+.help-btn-no {
+    background-color: var(--border-color);
+    color: var(--text-secondary);
+}
+
+.help-btn-no:hover {
+    background-color: var(--switch-off);
+}
+
+.help-explanation {
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    text-align: left;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.help-explanation h4 {
+    color: var(--accent-color);
+    margin: 15px 0 10px 0;
+}
+
+.help-explanation .step {
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.help-explanation .step-number {
+    color: var(--primary-color);
+    font-weight: bold;
+    font-size: 1.2rem;
 }
 
 .continue-btn:hover {
@@ -1047,6 +1163,14 @@ footer {
         font-size: 4rem;
         width: 120px;
         height: 120px;
+    }
+    
+    .output-value {
+        font-size: 1.5rem;
+    }
+    
+    #decimal-value {
+        font-size: 3rem;
     }
     
     .leds {
