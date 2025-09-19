@@ -35,9 +35,9 @@
                 
                 <!-- LED-Anzeigen -->
                 <div class="leds">
-                    <div class="led" data-bit="7">0</div>
                     <div class="led" data-bit="6">0</div>
                     <div class="led" data-bit="5">0</div>
+                    <div class="led" data-bit="7">0</div>
                     <div class="led" data-bit="4">0</div>
                     <div class="led" data-bit="3">0</div>
                     <div class="led" data-bit="2">0</div>
@@ -139,7 +139,7 @@
                 <div class="mission-box">
                     <h3>🎯 Mission</h3>
                     <div class="mission-content" id="mission-content">
-                        Zeige den ASCII-Buchstaben 'y' an!
+                        🔍 Willkommen! Klicke auf die Glühbirne 💡 neben den Schaltern, um herauszufinden, was diese Schalter mit Computern zu tun haben!
                     </div>
                     
                     <!-- Mission Selector -->
@@ -148,9 +148,8 @@
                             <!-- Wird dynamisch gefüllt -->
                         </div>
                         
-                        <!-- ASCII Table Button -->
-                        <div class="ascii-table-controls">
-                            <button class="ascii-table-btn" id="ascii-table-btn">📋 ASCII-Tabelle anzeigen</button>
+                        <!-- Help Button -->
+                        <div class="mission-controls">
                             <button class="help-btn hidden" id="mission-help-btn">🆘 Hilfe</button>
                         </div>
                     </div>
@@ -165,7 +164,7 @@
                 <!-- Module Controls für Output-Bereich -->
                 <div class="output-controls">
                     <label class="module-toggle">
-                        <input type="checkbox" id="ascii-mode-toggle" checked>
+                        <input type="checkbox" id="ascii-mode-toggle">
                         <span>ASCII-Modus</span>
                     </label>
                     <label class="module-toggle">
@@ -173,7 +172,7 @@
                         <span>Binär</span>
                     </label>
                     <label class="module-toggle">
-                        <input type="checkbox" id="decimal-output-toggle">
+                        <input type="checkbox" id="decimal-output-toggle" checked>
                         <span>Dezimal</span>
                     </label>
                     <label class="module-toggle">
@@ -184,18 +183,18 @@
                 
                 <div class="ascii-output">
                     <div class="output-label">ASCII-Zeichen:</div>
-                    <div class="ascii-char" id="ascii-char">?</div>
+                    <div class="ascii-char" id="ascii-char">[NULL]</div>
                 </div>
                 
                 <div class="additional-outputs">
                     <div class="binary-output module hidden" id="binary-output-module">
                         <div class="output-label">Binär:</div>
-                        <div class="output-value" id="binary-value">00111111</div>
+                        <div class="output-value" id="binary-value">00000000</div>
                     </div>
                     
-                    <div class="decimal-output module hidden" id="decimal-output-module">
+                    <div class="decimal-output module" id="decimal-output-module">
                         <div class="output-label">Dezimal:</div>
-                        <div class="output-value" id="decimal-value">63</div>
+                        <div class="output-value" id="decimal-value">0</div>
                     </div>
                     
                     <div class="grayscale-output module hidden" id="grayscale-module">
@@ -214,7 +213,7 @@
                 <a href="https://tinfo.space/teachers/Digitale_Tools/" target="_blank" rel="noopener">More apps and tools</a> |
                 <a href="http://contact.tinfo.space/" id="contact-link">Kontakt</a> |
                 <a href="https://linktr.ee/tinfo.space" target="_blank" rel="noopener">Links</a> |
-                <a href="https://github.com/HansTydecks/binary-ascii-visualizer" target="_blank" rel="noopener">GitHub</a> |
+                <a href="https://github.com/HansTydecks" target="_blank" rel="noopener">GitHub</a> |
                 © 2025 Hans Tydecks
             </p>
         </div>

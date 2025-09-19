@@ -1,6 +1,6 @@
 class BinaryAsciiVisualizer {
     constructor() {
-        this.currentValue = 63; // Start with '?'
+        this.currentValue = 202; // Start with 0
         this.currentMission = 0;
         this.completedMissions = new Set(); // Track completed missions
         this.hintsViewed = new Set(); // Track viewed hints for missions
@@ -13,122 +13,46 @@ class BinaryAsciiVisualizer {
                 timer: 8
             },
             {
-                text: "Zeige das große 'A' in ASCII an! Schaue in der ASCII-Tabelle nach, welche Schalter du dafür umlegen musst.",
-                check: () => this.currentValue === 65, // 'A'
-                success: "Perfekt! Das große A hat den ASCII-Code 65!\nFahre mit dem Mauszeiger über die gelösten Aufgaben, um die Lösungen erneut zu sehen.",
-                timer: 10
-            },
-            {
-                text: "Zeige das kleine 'a' in ASCII an!",
-                check: () => this.currentValue === 97, // 'a'
-                success: "Das kleine a hat den ASCII-Code 97! Merke dir, welchen Schalter du umlegen musstest, um von A zu a zu kommen.",
-                timer: 8
-            },
-            {
-                text: "Zeige das große 'B' in ASCII an!",
-                check: () => this.currentValue === 66, // 'B'
-                success: "Großartig! Das große B hat den ASCII-Code 66!",
-                timer: 3
-            },
-            {
-                text: "Zeige das kleine 'b' in ASCII an!",
-                check: () => this.currentValue === 98, // 'b'
-                success: "Das kleine b hat den ASCII-Code 98!",
-                timer: 3
-            },
-            {
-                text: "Zeige das große 'C' in ASCII an!",
-                check: () => this.currentValue === 67, // 'C'
-                success: "Das große C hat den ASCII-Code 67!",
-                timer: 3
-            },
-            {
-                text: "Zeige das kleine 'c' in ASCII an! Brauchst du noch die Tabelle dafür?",
-                check: () => this.currentValue === 99, // 'c'
-                success: "Fantastisch! Das kleine c hat den ASCII-Code 99!",
-                timer: 3
-            },
-            {
-                text: "Bevor wir zu den Zahlen gehen: Aktiviere zuerst 'Dezimalwerte' in der Eingabe und klicke dann auf die Glühbirne 💡 links, um zu verstehen, wie der Wert berechnet wird!",
-                check: () => this.modulesViewed && this.modulesViewed.has('decimal-values') && this.hintsViewed && this.hintsViewed.has('dezimalwerte'),
-                success: "Perfekt! Jetzt verstehst du, wie die Dezimalwerte in den einzelnen Positionen berechnet werden. Lass uns mit den ASCII-Zahlen weitermachen!",
-                timer: 10
-            },
-            {
-                text: "Zeige die Zahl '0' in ASCII an!",
-                check: () => this.currentValue === 48, // '0'
-                success: "Richtig! Die Ziffer 0 hat den ASCII-Code 48!",
-                timer: 3
-            },
-            {
-                text: "Zeige die Zahl '1' in ASCII an!",
-                check: () => this.currentValue === 49, // '1'
-                success: "Die Ziffer 1 hat den ASCII-Code 49! Welchen Unterschied zur 0 hast du bemerkt? Welche Schalter musstest du umlegen? Vergleiche mit den Dezimalwerten darunter.",
-                timer: 10
-            },
-            {
-                text: "Zeige die Zahl '2' an!",
-                check: () => this.currentValue === 50, // '2'
-                success: "Die Ziffer 2 hat den ASCII-Code 50! Achte weiter auf die Schalter und die Dezimalwerte darunter.",
-                timer: 8
-            },
-            {
-                text: "Zeige die Zahl '3' in ASCII an!",
-                check: () => this.currentValue === 51, // '3'
-                success: "Sehr gut! Die Ziffer 3 hat den ASCII-Code 51! Sicher fällt dir schon das Muster auf.",
-                timer: 5
-            },
-            {
-                text: "Zeige die Zahl '4' an!",
-                check: () => this.currentValue === 52, // '4'
-                success: "Perfekt! Die Ziffer 4 hat den ASCII-Code 52!",
-                timer: 3
-            },
-            {
-                text: "Zeige die Zahl '9' an!",
-                check: () => this.currentValue === 57, // '9'
-                success: "Die Ziffer 9 hat den ASCII-Code 57!",
-                timer: 4
-            },
-            {
-                text: "Zum Abschluss: Klicke auf die Glühbirne 💡 bei 'Bit 0-7', um die eine Erklärung der Bit-Positionen zu entdecken!",
-                check: () => this.hintsViewed && this.hintsViewed.has('bits'),
-                success: "🎉 Herzlichen Glückwunsch! 🎉 Du bist jetzt ein wahrer ASCII-Meister! Du hast alle Missionen erfolgreich abgeschlossen und verstehst jetzt, wie der Computer die kleinen Schalter (die Bits) zu lesbaren Zeichen decodieren kann.",
-                timer: 8
-            },
-            {
-                text: "🔄 Neuer Modus: Schalte den ASCII-Output auf der rechten Seite aus und den Dezimal-Output ein!",
-                check: () => {
-                    const asciiToggle = document.getElementById('ascii-mode-toggle');
-                    const decimalToggle = document.getElementById('decimal-output-toggle');
-                    return !asciiToggle.checked && decimalToggle.checked;
-                },
-                success: "Perfekt! Jetzt siehst du Zahlen statt Buchstaben - der Computer kann dieselben Bits unterschiedlich interpretieren!",
-                timer: 5
-            },
-            {
-                text: "Schalte alle Schalter aus (alle auf 0)!",
+                text: "Schalte alle Schalter aus (alle auf 0) und zeige die Dezimalzahl 0 an!",
                 check: () => this.currentValue === 0,
-                success: "Gut! Alle Bits sind aus - das ergibt die Dezimalzahl 0!",
-                timer: 3
+                success: "Perfekt! Alle Bits sind aus - das ergibt die Dezimalzahl 0!",
+                timer: 5
             },
             {
                 text: "Lasse dir die Dezimalzahl 1 anzeigen!",
                 check: () => this.currentValue === 1,
-                success: "Richtig! Die Dezimalzahl 1 braucht nur das erste Bit!",
-                timer: 3
+                success: "Richtig! Die Dezimalzahl 1 braucht nur das erste Bit (ganz rechts)!",
+                timer: 5
             },
             {
                 text: "Lasse dir die Dezimalzahl 2 anzeigen!",
                 check: () => this.currentValue === 2,
                 success: "Die Dezimalzahl 2 braucht nur das zweite Bit!",
-                timer: 3
+                timer: 4
+            },
+            {
+                text: "Lasse dir die Dezimalzahl 3 anzeigen!",
+                check: () => this.currentValue === 3,
+                success: "Super! Die 3 ist 2 + 1, also Bit 0 und Bit 1!",
+                timer: 4
             },
             {
                 text: "Lasse dir die Dezimalzahl 4 anzeigen!",
                 check: () => this.currentValue === 4,
-                success: "Die Dezimalzahl 4 braucht nur das dritte Bit! Fällt dir auf welches Muster zwischen den einzelnen Dezimalzahlen der Bits besteht?",
-                timer: 10
+                success: "Die Dezimalzahl 4 braucht nur das dritte Bit! Fällt dir das Muster auf?",
+                timer: 5
+            },
+            {
+                text: "Lasse dir die Dezimalzahl 5 anzeigen!",
+                check: () => this.currentValue === 5,
+                success: "Toll! Die 5 ist 4 + 1, also Bit 0 und Bit 2!",
+                timer: 4
+            },
+            {
+                text: "Lasse dir die Dezimalzahl 7 anzeigen!",
+                check: () => this.currentValue === 7,
+                success: "Die 7 ist 4 + 2 + 1, also die ersten drei Bits!",
+                timer: 4
             },
             {
                 text: "Lasse dir die Dezimalzahl 8 anzeigen!",
@@ -137,21 +61,75 @@ class BinaryAsciiVisualizer {
                 timer: 3
             },
             {
-                text: "Lasse dir die Dezimalzahl 5 anzeigen!",
-                check: () => this.currentValue === 5,
-                success: "Super! Die 5 ist 4 + 1, also Bit 0 und Bit 2!",
+                text: "Lasse dir die Dezimalzahl 10 anzeigen!",
+                check: () => this.currentValue === 10,
+                success: "Die 10 ist 8 + 2!",
                 timer: 3
             },
             {
-                text: "Lasse dir die Dezimalzahl 13 anzeigen!",
-                check: () => this.currentValue === 13,
-                success: "Toll! Die 13 ist 8 + 4 + 1!",
+                text: "Lasse dir die Dezimalzahl 15 anzeigen!",
+                check: () => this.currentValue === 15,
+                success: "Die 15 braucht die ersten vier Bits (8+4+2+1)!",
                 timer: 3
             },
             {
-                text: "Lasse dir die Dezimalzahl 68 anzeigen!",
-                check: () => this.currentValue === 68,
-                success: "Die 68 ist 64 + 4!",
+                text: "Lasse dir die Dezimalzahl 16 anzeigen!",
+                check: () => this.currentValue === 16,
+                success: "Die 16 braucht nur das fünfte Bit!",
+                timer: 3
+            },
+            {
+                text: "Lasse dir die Dezimalzahl 20 anzeigen!",
+                check: () => this.currentValue === 20,
+                success: "Die 20 ist 16 + 4!",
+                timer: 3
+            },
+            {
+                text: "Lasse dir die Dezimalzahl 25 anzeigen!",
+                check: () => this.currentValue === 25,
+                success: "Die 25 ist 16 + 8 + 1!",
+                timer: 3
+            },
+            {
+                text: "Lasse dir die Dezimalzahl 31 anzeigen!",
+                check: () => this.currentValue === 31,
+                success: "Die 31 braucht die ersten fünf Bits!",
+                timer: 3
+            },
+            {
+                text: "Lasse dir die Dezimalzahl 32 anzeigen!",
+                check: () => this.currentValue === 32,
+                success: "Die 32 braucht nur das sechste Bit!",
+                timer: 3
+            },
+            {
+                text: "Lasse dir die Dezimalzahl 42 anzeigen!",
+                check: () => this.currentValue === 42,
+                success: "Die 42 ist 32 + 8 + 2!",
+                timer: 3
+            },
+            {
+                text: "Lasse dir die Dezimalzahl 50 anzeigen!",
+                check: () => this.currentValue === 50,
+                success: "Die 50 ist 32 + 16 + 2!",
+                timer: 3
+            },
+            {
+                text: "Lasse dir die Dezimalzahl 64 anzeigen!",
+                check: () => this.currentValue === 64,
+                success: "Die 64 braucht nur das siebte Bit!",
+                timer: 3
+            },
+            {
+                text: "Lasse dir die Dezimalzahl 77 anzeigen!",
+                check: () => this.currentValue === 77,
+                success: "Die 77 ist 64 + 8 + 4 + 1!",
+                timer: 3
+            },
+            {
+                text: "Lasse dir die Dezimalzahl 100 anzeigen!",
+                check: () => this.currentValue === 100,
+                success: "Die 100 ist 64 + 32 + 4!",
                 timer: 3
             },
             {
@@ -160,35 +138,41 @@ class BinaryAsciiVisualizer {
                 success: "Die 127 braucht alle Bits außer dem höchsten Bit 7!",
                 timer: 4
             },
-                        {
-                text: "Lasse dir die Dezimalzahl 100 anzeigen!",
-                check: () => this.currentValue === 100,
-                success: "Sehr gut! ",
-                timer: 2
+            {
+                text: "Lasse dir die Dezimalzahl 128 anzeigen!",
+                check: () => this.currentValue === 128,
+                success: "Die 128 braucht nur das höchste Bit 7!",
+                timer: 3
             },
-                        {
+            {
+                text: "Lasse dir die Dezimalzahl 150 anzeigen!",
+                check: () => this.currentValue === 150,
+                success: "Die 150 ist 128 + 16 + 4 + 2!",
+                timer: 3
+            },
+            {
                 text: "Lasse dir die Dezimalzahl 185 anzeigen!",
                 check: () => this.currentValue === 185,
-                success: "Exzellent!",
-                timer: 2
+                success: "Die 185 ist 128 + 32 + 16 + 8 + 1!",
+                timer: 3
             },
-                        {
-                text: "Lasse dir die Dezimalzahl 212 anzeigen!",
-                check: () => this.currentValue === 212,
-                success: "Top!",
-                timer: 1
+            {
+                text: "Lasse dir die Dezimalzahl 200 anzeigen!",
+                check: () => this.currentValue === 200,
+                success: "Die 200 ist 128 + 64 + 8!",
+                timer: 3
             },
             {
                 text: "Lasse dir die Dezimalzahl 243 anzeigen!",
                 check: () => this.currentValue === 243,
-                success: "Exzellent! Die 243 ist eine komplexe Kombination vieler Bits!",
-                timer: 1
+                success: "Die 243 ist 128 + 64 + 32 + 16 + 2 + 1!",
+                timer: 3
             },
             {
-                text: "🎉 Du bist jetzt ein Binär-Dezimal-Experte! Herzlichen Glückwunsch!",
-                check: () => true, // Wird automatisch erfüllt
-                success: "Perfekt! 🏆 Du hast alle Missionen gemeistert! Du verstehst jetzt sowohl ASCII-Zeichen als auch Dezimalzahlen in Binärdarstellung. Du bist ein wahrer Computer-Profi!",
-                timer: 5
+                text: "Zum Abschluss: Klicke auf die Glühbirne 💡 bei 'Bit 0-7', um die Erklärung der Bit-Positionen zu entdecken!",
+                check: () => this.hintsViewed && this.hintsViewed.has('bits'),
+                success: "🎉 Herzlichen Glückwunsch! � Du bist jetzt ein wahrer Binär-Dezimal-Meister! Du hast alle Missionen erfolgreich abgeschlossen und verstehst jetzt perfekt, wie Computer mit Bits rechnen und diese zu Dezimalzahlen umwandeln! 🏆",
+                timer: 10
             }
         ];
         this.init();
@@ -196,7 +180,6 @@ class BinaryAsciiVisualizer {
 
     init() {
         this.setupEventListeners();
-        this.createAsciiTable();
         this.createMissionButtons();
         this.initializeHintBulbs();
         this.initializeModuleStates();
@@ -234,15 +217,6 @@ class BinaryAsciiVisualizer {
             });
         });
 
-        // ASCII Table
-        document.getElementById('ascii-table-btn').addEventListener('click', () => {
-            this.showAsciiTable();
-        });
-
-        document.getElementById('close-ascii-table').addEventListener('click', () => {
-            this.hideAsciiTable();
-        });
-
         // Hint System
         document.addEventListener('click', (e) => {
             if (e.target.id === 'bits-hint') {
@@ -272,12 +246,6 @@ class BinaryAsciiVisualizer {
         });
 
         // Modal close on outside click
-        document.getElementById('ascii-table-modal').addEventListener('click', (e) => {
-            if (e.target === e.currentTarget) {
-                this.hideAsciiTable();
-            }
-        });
-
         document.getElementById('hint-modal').addEventListener('click', (e) => {
             if (e.target === e.currentTarget) {
                 this.hideHint();
