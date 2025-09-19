@@ -864,28 +864,34 @@ class BinaryAsciiVisualizer {
     }
 
     checkMission() {
+        // Wenn alle Missionen abgeschlossen sind, keine weiteren Checks/Animationen ausführen
+        if (this.completedMissions.size >= this.missions.length) {
+            return;
+        }
+
         if (this.currentMission < this.missions.length) {
             const mission = this.missions[this.currentMission];
-            if (mission.check()) {
-                // Mission erfolgreich - zur Liste hinzufügen wenn noch nicht da
-                if (!this.completedMissions.has(this.currentMission)) {
-                    this.completedMissions.add(this.currentMission);
-                }
+            // Nur beim ersten Erfüllen der Mission Erfolg anzeigen
+            if (mission.check() && !this.completedMissions.has(this.currentMission)) {
+                this.completedMissions.add(this.currentMission);
                 this.showMissionSuccess(mission.success);
             }
         }
         
         // Spezielle Behandlung für die finale Mission (automatisch erfüllen wenn vorherige Mission abgeschlossen)
         const finalMissionIndex = this.missions.length - 1;
-        if (this.currentMission === finalMissionIndex - 1 && 
-            this.completedMissions.has(finalMissionIndex - 1) && 
+        if (this.currentMission === finalMissionIndex - 1 &&
+            this.completedMissions.has(finalMissionIndex - 1) &&
             !this.completedMissions.has(finalMissionIndex)) {
             // Automatisch zur finalen Mission wechseln und erfüllen
             setTimeout(() => {
-                this.currentMission = finalMissionIndex;
-                this.completedMissions.add(finalMissionIndex);
-                this.updateMission();
-                this.showMissionSuccess(this.missions[finalMissionIndex].success);
+                // Doppelte Ausführung verhindern
+                if (!this.completedMissions.has(finalMissionIndex)) {
+                    this.currentMission = finalMissionIndex;
+                    this.completedMissions.add(finalMissionIndex);
+                    this.updateMission();
+                    this.showMissionSuccess(this.missions[finalMissionIndex].success);
+                }
             }, 1000);
         }
     }
