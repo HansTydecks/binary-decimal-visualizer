@@ -1,216 +1,69 @@
-# Binär-ASCII-Visualizer
+# Binary-Decimal Visualizer
 
-Eine interaktive Webanwendung zur Visualisierung von Binärzahlen und deren Interpretation als ASCII-Zeichen, entwickelt für den Einsatz am Smartboard im Informatikunterricht.
-
-## 🎯 Zielsetzung
-
-Diese App unterstützt Lehrende dabei, Schülerinnen und Schülern die Konzepte von Bits, Bytes und deren verschiedene Interpretationen zu vermitteln. Sie zeigt anschaulich, wie dieselben 8 Bits je nach Kontext als ASCII-Zeichen, Dezimalzahl oder Graustufe interpretiert werden können.
+An interactive web application for visualizing binary numbers and their decimal representation, designed for educational use on smartboards and interactive displays.
 
 ## ✨ Features
 
-### Hauptfunktionen
-- **8 interaktive Bit-Schalter** mit visueller LED-Anzeige
-- **Große ASCII-Zeichen-Anzeige** für optimale Sichtbarkeit am Smartboard
-- **Modulare Anzeigen** die einzeln ein-/ausgeschaltet werden können:
-  - Dezimalwerte unter den Schaltern (128, 64, 32, 16, 8, 4, 2, 1)
-  - Zweierpotenzen-Anzeige (2⁷, 2⁶, 2⁵, ...)
-  - Binärzahl-String-Darstellung
-  - Dezimalwert-Ausgabe
-  - Graustufen-Visualisierung
+- **8 Interactive Bit Switches** with visual LED display
+- **Real-time Binary ↔ Decimal Conversion**
+- **30 Progressive Missions** to learn binary concepts step by step
+- **Modular Display Options**:
+  - Decimal values under switches (128, 64, 32, 16, 8, 4, 2, 1)
+  - Binary powers display (2⁷, 2⁶, 2⁵, ...)
+  - Binary string representation
+  - Grayscale visualization
+- **Touch-optimized** for smartboards and tablets
+- **Responsive design** for all screen sizes
 
-### Bedienkomfort
-- **Preset-Buttons** für häufige Beispiele (A, Z, H, Reset, Maximum)
-- **Schnell-Eingabe** für Dezimalwerte und ASCII-Zeichen
-- **Touch-optimierte Bedienung** für Smartboards
-- **Responsive Design** für verschiedene Bildschirmgrößen
+## 🚀 Quick Start
 
-### Erweiterte Features
-- **Tastenkürzel** für Demonstrationen:
-  - `Strg+1`: Buchstaben A-Z durchlaufen
-  - `Strg+2`: Zweierpotenzen zeigen
-  - `Strg+3`: Von 0 bis 255 zählen
-  - `Strg+0`: Reset auf 0
-- **Console-API** für erweiterte Nutzung durch Lehrende
-- **Animationen** bei Wertänderungen für bessere Sichtbarkeit
+### Online Demo
+Visit the live demo: [https://becimal.tinfo.space](https://becimal.tinfo.space)
 
-## 🚀 Installation und Nutzung
+### Local Usage
+1. Clone or download this repository
+2. Open `index.html` in any modern web browser
+3. No installation required!
 
-### GitHub Pages Deployment
+## 🎓 Educational Use
 
-1. **Repository klonen oder herunterladen**
-   ```bash
-   git clone https://github.com/HansTydecks/binary-ascii-visualizer.git
-   ```
+Perfect for teaching:
+- **Binary number system** fundamentals
+- **Bit manipulation** and position values
+- **Powers of 2** concepts
+- **Binary to decimal conversion**
+- **Computer data representation**
 
-2. **GitHub Pages aktivieren**
-   - Gehen Sie zu den Repository-Einstellungen auf GitHub
-   - Scrollen Sie zu "Pages" 
-   - Wählen Sie "Deploy from a branch"
-   - Wählen Sie "main" branch und "/ (root)"
-   - Klicken Sie auf "Save"
+### Mission-Based Learning
+The app includes 30 progressive missions that guide students through:
+1. Understanding what bits represent
+2. Basic decimal numbers (0, 1, 2, 4, 8...)
+3. Combining bits for larger numbers
+4. Complex decimal values up to 255
 
-3. **App aufrufen**
-   - Die App ist dann verfügbar unter: `https://hanstydecks.github.io/binary-ascii-visualizer/`
+## 🛠️ Technology
 
-### Lokale Nutzung
+- **Pure HTML5, CSS3, JavaScript** - No frameworks needed
+- **Lightweight** (~50KB total)
+- **Offline capable** after first load
+- **Modern browser compatible** (Chrome, Firefox, Safari, Edge)
 
-Öffnen Sie einfach die `index.html` Datei in einem modernen Webbrowser. Keine weiteren Installationen erforderlich.
+## � Usage
 
-## 📚 Pädagogischer Einsatz
+1. **Toggle switches** to set binary values
+2. **Watch real-time updates** of decimal representation
+3. **Follow missions** for guided learning
+4. **Enable modules** to show additional information
+5. **Use hint bulbs** 💡 for explanations
 
-### Unterrichtsphase 3: Transistor/Schalter-Demonstration
+## 🤝 Contributing
 
-Die App ist speziell für Phase 3 des Unterrichtskonzepts entwickelt:
+Contributions are welcome! Please feel free to submit issues or pull requests.
 
-**Lernziel**: Verdeutlichen, dass gleiche Bits unterschiedliche Bedeutungen haben können
+## � License
 
-**Einsatz-Szenario**:
-1. Lehrer setzt Byte `01000001` an der App
-2. Zeigt verschiedene Interpretationen:
-   - Als ASCII: Buchstabe 'A'
-   - Als Dezimalzahl: 65
-   - Als Graustufe: heller Wert
-3. Schüler erkennen: Bits haben keine eigenständige Bedeutung
-4. Bedeutung entsteht durch Vereinbarung/Interpretation
-
-### Modularer Aufbau für progressive Komplexität
-
-- **Einstieg**: Nur Schalter und ASCII-Anzeige aktiv
-- **Stufe 1**: Dezimalwerte unter Schaltern einblenden
-- **Stufe 2**: Zweierpotenzen hinzufügen
-- **Stufe 3**: Binär- und Dezimalausgabe aktivieren
-- **Stufe 4**: Graustufen-Visualisierung für erweiterte Interpretation
-
-## 🛠️ Technische Details
-
-### Technologie-Stack
-- **Frontend**: Vanilla HTML5, CSS3, JavaScript (ES6+)
-- **Styling**: CSS Grid, Flexbox, CSS Custom Properties
-- **Kompatibilität**: Moderne Browser (Chrome, Firefox, Safari, Edge)
-- **Responsive**: Mobile-first Design mit Touch-Optimierung
-
-### Browser-Anforderungen
-- Chrome 60+
-- Firefox 55+
-- Safari 12+
-- Edge 79+
-
-### Performance
-- Keine externen Abhängigkeiten
-- Kleine Dateigröße (~50KB total)
-- Offline-fähig nach dem ersten Laden
-- Optimiert für Smartboard-Performance
-
-## 🎮 Erweiterte Nutzung
-
-### Console-API für Lehrende
-
-Öffnen Sie die Browser-Entwicklertools (F12) für erweiterte Funktionen:
-
-```javascript
-// Wert direkt setzen
-binaryVisualizer.setValue(72); // Setzt 'H'
-
-// Binärzahl setzen
-setBinary('01001000'); // Setzt Binärzahl direkt
-
-// Zeichen setzen
-setCharacter('H'); // Setzt ASCII-Zeichen
-
-// Aktuelle Bit-Darstellung anzeigen
-binaryVisualizer.getBitRepresentation();
-
-// Demonstrationen starten
-binaryVisualizer.showExample('letters'); // A-Z durchlaufen
-binaryVisualizer.showExample('powers');  // Zweierpotenzen
-binaryVisualizer.showExample('count');   // 0-255 zählen
-```
-
-### Tastenkürzel
-
-- `Strg+1`: Alphabet A-Z demonstration
-- `Strg+2`: Zweierpotenzen-Demonstration  
-- `Strg+3`: Vollständiger Zählvorgang 0-255
-- `Strg+0`: Schneller Reset auf 0
-
-## 🔧 Anpassung und Erweiterung
-
-### Dateistruktur
-```
-binary-ascii-visualizer/
-├── index.html          # Hauptstruktur
-├── style.css           # Styling und Layout
-├── script.js           # Funktionalität und Interaktion
-├── README.md           # Diese Dokumentation
-└── app-prompt.md       # Entwicklungs-Prompt
-```
-
-### CSS-Variablen für einfache Anpassung
-```css
-:root {
-    --primary-color: #2563eb;     /* Hauptfarbe */
-    --secondary-color: #10b981;   /* Schalter/LEDs */
-    --accent-color: #f59e0b;      /* Akzente */
-    --switch-on: #10b981;         /* Schalter AN */
-    --led-on: #10b981;            /* LED AN */
-}
-```
-
-## 📖 Unterrichtsmaterial
-
-### Arbeitsblatt-Ideen
-
-1. **Bit-Muster erkunden**
-   - Welche ASCII-Zeichen ergeben sich bei verschiedenen Bit-Mustern?
-   - Welche Dezimalwerte entsprechen den Buchstaben A-Z?
-
-2. **Zweierpotenzen verstehen**
-   - Welche Einzelbits müssen gesetzt sein für bestimmte Dezimalwerte?
-   - Wie verändert sich der Wert beim Ein-/Ausschalten einzelner Bits?
-
-3. **Interpretation vergleichen**
-   - Gleiches Bit-Muster als ASCII, Dezimal und Graustufe interpretieren
-   - Wann ist welche Interpretation sinnvoll?
-
-### Diskussionsfragen
-
-- "Warum kann der Computer nur 0 und 1 speichern?"
-- "Haben Bits eine eigene Bedeutung?"
-- "Wie entsteht aus Bits ein Buchstabe?"
-- "Warum gibt es verschiedene Zeichensätze?"
-
-## 🐛 Fehlerbehebung
-
-### Häufige Probleme
-
-**App lädt nicht richtig:**
-- Browser-Cache leeren (Strg+F5)
-- JavaScript in Browser-Einstellungen aktiviert?
-- Console (F12) auf Fehlermeldungen prüfen
-
-**Touch-Bedienung funktioniert nicht:**
-- Moderne Browser verwenden
-- Zoom-Level des Browsers prüfen
-- Smartboard-Kalibrierung überprüfen
-
-**Module werden nicht angezeigt:**
-- Checkboxes in der Kopfzeile überprüfen
-- Browser-Fenster groß genug für Layout?
-
-## 📄 Lizenz
-
-Dieses Projekt steht unter der MIT-Lizenz und kann frei für Bildungszwecke verwendet und angepasst werden.
-
-## 🤝 Beitragen
-
-Verbesserungsvorschläge und Erweiterungen sind willkommen! Erstellen Sie gerne Issues oder Pull Requests.
-
-## 📞 Support
-
-Bei Fragen oder Problemen wenden Sie sich an:
-- GitHub Issues: [Repository Issues](https://github.com/HansTydecks/binary-ascii-visualizer/issues)
-- Entwickler: [@HansTydecks](https://github.com/HansTydecks)
+MIT License - Free for educational use and modification.
 
 ---
 
-**Entwickelt für den Informatikunterricht - Von Lehrenden für Lehrende** 🎓
+**Built for Computer Science Education** 🎓
